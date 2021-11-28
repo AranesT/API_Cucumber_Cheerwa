@@ -6,6 +6,7 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -25,6 +26,17 @@ public class WebDriverInicialization {
         }
     }
 
+    @Before
+    public void allureSubThreadParallel() {
+        String listenerName = "AllureSelenide";
+
+        if (!(SelenideLogger.hasListener(listenerName)))
+            SelenideLogger.addListener(listenerName,
+                    new AllureSelenide().
+                            screenshots(true).
+                            savePageSource(false));
+    }
+
     @After
     public void tearDown(Scenario scenario) {
 
@@ -40,6 +52,7 @@ public class WebDriverInicialization {
             e.printStackTrace();
         }
     }
+
 
     @After
     public void closer() {

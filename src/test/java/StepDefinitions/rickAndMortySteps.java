@@ -85,7 +85,7 @@ public class rickAndMortySteps {
         Response getLastCharacterInfo = given()
                 .baseUri(utils.Configuration.getConfigurationValue("webUrl"))
                 .when()
-                .get("/character/"+lastCharIDD)
+                .get("/character/" + lastCharIDD)
                 .then()
                 .statusCode(200)
                 .assertThat()
